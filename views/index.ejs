@@ -1,13 +1,117 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>LeanEngine</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-  </head>
-  <body>
-    <h1>LeanEngine</h1>
-    <p>这是 LeanEngine 的示例应用</p>
-    <p>当前时间：<%= currentTime %></p>
-    <p><a href="/todos">一个简单的「TODO 列表」示例</a></p>
-  </body>
+<% include header.ejs %>
+<style>
+  #title{
+    background-color: rgba(0, 92, 160, 1);
+  }
+  .page-scroll{
+    width: 100%;
+  }
+  .navbar{
+    margin:0;
+    border-radius:0;
+  }
+  .navbar-bracket{
+    display:  block;
+    float:right;
+    overflow: hidden;
+    margin:26px 20px;
+    padding: 0;
+    list-style: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: Hiragino Sans GB, Microsoft Yahei !important;
+  }
+  .icon a {
+    color: white;
+    margin-left: 40px;
+  }
+  .icon {
+    display: block;
+    float: left;
+    margin-top: 16px;
+    width: 96%;
+    text-align: right;
+    font-weight: 600;
+    color: white;
+    position: fixed;
+  }
+  button, a, .modal {
+    cursor: pointer;
+  }
+  .content{
+    margin-top: 60px;
+  }
+  .api-content{
+    padding: 10px 30px 20px;
+  }
+  .api-item{
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    transition: color .2s ease,border .2s ease;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .api-item-meta{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .create{
+    background-color: rgba(0, 92, 160, 1);
+    border-color: rgba(0, 92, 160, 1);
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+  .create:hover,.create:focus{
+    background-color: rgba(0, 92, 160, 0.9);
+    border-color: rgba(0, 92, 160, 1);
+    color: white;
+  }
+</style>
+<body>
+  <nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation" id="title">
+    <div class="navbar-header page-scroll">
+      <div class="logo"></div>
+      <div class="icon">
+        <a href="#intro">平台介绍</a>
+        <a href="#about">联系我们</a>
+      </div>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="row api-content">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="api-item">
+          <div class="api-item-meta">
+            onemall
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="api-item">
+          <div class="api-item-meta">
+            onemall
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="api-item">
+          <div class="api-item-meta">
+            onemall
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-default create">创建api</button>
+    </div>
+  </div>
+</body>
 </html>
