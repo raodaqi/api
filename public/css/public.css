@@ -37,6 +37,7 @@ a:hover{
 }
 .navbar{
   font-family: '微软雅黑',"Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  height: 60px;
 }
 
 .active li{
@@ -116,16 +117,19 @@ button,a,.modal{
  }
 
  .navbar .logo{
+    position: absolute;
     float: left;
     width: 152px;
     height: 40px;
     margin: 10px 10px 10px 5px;
     margin-left: 80px;
-    text-indent: -9999px;
-    background: url(/img/moresdk-01.png) no-repeat;
+    /*text-indent: -9999px;*/
+    /*background: url(/img/moresdk-01.png) no-repeat;*/
     background-size: 100% 100%;
-    color: #000;
-    font-size: 20px;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 2;
 }
 
 .ml-20{margin-left: 20px;}

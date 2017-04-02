@@ -2,6 +2,21 @@ $(window).load(function() {
   loadingHide();
 });
 
+$(document).on("click",".menu-li,.icon-item",function(){
+      var url = $(this).children("a").attr("href");
+      var url = url.split("#")[1];
+      console.log(url);
+      $(".sec-content").hide();
+      // $("."+url+" a").css({"color":"#609be3 !important;"});
+      $(".menu-li").removeClass("apiactive");
+      $("."+url).addClass("apiactive");
+      $("#"+url).show();
+})
+
+$(document).on("click",".dropdown-menu li",function(){
+  $(".dropdown-toggle .dropdown-text").text($(this).text());
+})
+
 //向后台发送数据
   function sendQuery(url,type,data,callback){
     $.ajax({

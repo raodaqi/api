@@ -1,150 +1,161 @@
 <% include header.ejs %>
-<style>
-  #title{
-    background-color: rgba(0, 92, 160, 1);
-  }
-  .page-scroll{
-    width: 100%;
-  }
-  .navbar{
-    margin:0;
-    border-radius:0;
-  }
-  .navbar-bracket{
-    display:  block;
-    float:right;
-    overflow: hidden;
-    margin:26px 20px;
-    padding: 0;
-    list-style: none;
-    vertical-align: middle;
-    white-space: nowrap;
-    font-family: Hiragino Sans GB, Microsoft Yahei !important;
-  }
-  .icon a {
-    color: white;
-    margin-left: 40px;
-  }
-  .icon {
-    display: block;
-    float: left;
-    margin-top: 16px;
-    width: 96%;
-    text-align: right;
-    font-weight: 600;
-    color: white;
-    position: fixed;
-  }
-  button, a, .modal {
-    cursor: pointer;
-  }
-  .content{
-    margin-top: 60px;
-  }
-  .api-content{
-    padding: 10px 30px 20px;
-  }
-  .api-item{
-    position: relative;
-    margin-bottom: 20px;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    transition: color .2s ease,border .2s ease;
-    box-sizing: border-box;
-    padding-left: 15px;
-    padding-right: 15px;
-    cursor: pointer;
-  }
-  .api-item-meta{
-    width: 100%;
-    height: 80px;
-    line-height: 80px;
-    box-sizing: border-box;
-    text-align: center;
-  }
-  .create{
-    background-color: rgba(0, 92, 160, 1);
-    border-color: rgba(0, 92, 160, 1);
-    color: white;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 20px;
-  }
-  .create:hover,.create:focus{
-    background-color: rgba(0, 92, 160, 0.9);
-    border-color: rgba(0, 92, 160, 1);
-    color: white;
-  }
-
-  /*modal*/
-  .modal-title{
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .close{
-    width: 21px;
-    height: 21px;
-    border-radius: 50%;
-    border:1px solid #000 !important;
-  }
-  .close:hover,.close:focus,.close:active,.close:visited{
-    /*border: 0 !important;*/
-    border:1px solid #000 !important;
-    outline:none !important;
-    box-shadow: none !important;
-  }
-  .modal-body label{
-    font-weight: inherit;
-  }
+<link href='/css/style.css', rel='stylesheet', type='text/css'>
+<link href="/icheck/icheck.css" rel="stylesheet">
+<style type="text/css">
 </style>
 <body>
-  <nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation" id="title">
-    <div class="navbar-header page-scroll">
-      <div class="logo"></div>
-      <div class="icon">
-        <a href="#intro">平台介绍</a>
-        <a href="#about">联系我们</a>
-      </div>
-    </div>
-  </nav>
-  <div class="content">
-    <div class="row api-content">
-      <div class="app-content">
-      </div>
-    </div>
-    <button type="button" class="btn btn-default create ml-30" data-toggle="modal" data-target="#myModal">创建项目</button>
-  </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form action="" id="form">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">创建项目</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="exampleInputEmail1">新项目名称</label>
-            <input type="text" class="form-control" name="app_name" id="appname">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">项目描述</label>
-            <textarea class="form-control" rows="3" name="app_desc" id="appdesc"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button type="button" class="btn btn-primary" id="create">创建</button>
+<nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation" id="title">
+  <div class="navbar-header page-scroll">
+    <a href="/">
+      <div class="logo">APIMANAGE</div>
+    </a>
+    <div class="icon">
+      <a href="#intro">API介绍</a>
+      <label class="icon-item"><a href="#add">添加API</a></label>
+    </div>
+  </div>
+</nav>
+
+<div class="content">
+  <div class="col-sm-10 api-content">
+    <section class="sec-content apiactive" id="add" style="display:block">
+      <p>API名称:</p>
+      <div class="code-content">
+        <input type="text" name="app_name" id="appname" placeholder="获取XX信息">
+      </div>
+      <p>描述:</p>
+      <div class="code-content">
+        <input type="text" name="app_name" id="appname" placeholder="获取XX的XX详情">
+      </div>
+      <p>URI:</p>
+      <div class="code-content">
+        <input type="text" name="app_name" id="appname" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
+      </div>
+      <p>HTTP请求方式</p>
+      <div class="code-content">
+        <!-- Single button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="dropdown-text">GET</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a >GET</a></li>
+            <li><a >POST</a></li>
+          </ul>
         </div>
       </div>
-    </div>
-  </form>
-  </div>
+      <p>请求参数</p>
+      <div class="code-content">
+        <div class="parameter-list">
+          <p>depart 学院(eg:计算机学院)</p>
+        </div>
+        <div>
+          <input type="text" name="app_name" style="width:150px;" id="appname" placeholder="参数名">
+          <input type="text" name="app_name" style="width:150px;" id="appname" placeholder="参数类型">
+          <input type="text" name="app_name" style="width:150px;" id="appname" placeholder="参数描述">
+          <input type="text" name="app_name" style="width:150px;" id="appname" placeholder="参数备注">
+          <div class="check">
+            <input type="checkbox" name="quux[1]" id="input-1">
+            <label for="input-1">必须参数</label>
+          </div>
+          
+        </div>
+      </div>
+      <p>调用示例</p>
+      <div class="code-content">
+        <input type="text" name="app_name" id="appname" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
+      </div>
+      <p>返回结果</p>
+      <div class="code-content">
+        <p>
+          <span class="pln">{</span>
+        </p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;"code":200,</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;"message":"success",</p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;"data":
+          <span class="pln">{</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"本部"：
+          <span class="pln">{ ...... }</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"龙泉"：
+          <span class="pln">{ ...... }</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="pln">}</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;"grade":
+          <span class="pln">{</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["2011级","2012级",...]
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="pln">}</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;"class":
+          <span class="pln">{</span>
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["01班","02班",...]
+        </p>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="pln">}</span>
+        </p>
+        <p>
+          <span class="pln">}</p>
+          <p></section>
+        </div>
+</div>
+
 <% include footer.ejs %>
+<script type="text/javascript" src="/icheck/jquery.icheck.min.js"></script>
 <script>
+  //请求该api接口
+  $(function(){
+    $('.check input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio-blue'
+    });
+
+    //获取当前链接
+    // var appid = 
+    var search = location.search;
+    if(search){
+      var id = search.split("?appid=")[1];
+    }else{
+      location.href="/";
+    }
+    console.log(id);
+    
+
+    //获取项目列表
+    var data = {id:id};
+    var url = "/app/detail";
+    var type = "GET"; 
+    sendQuery(url,type,data,{
+      success:function(result){
+        //获取当前项目名称
+        var data = result.data;
+        // $(".logo").text(data.app_name);
+      },
+      error:function(error){
+        alert(error.message);
+        console.log(error);
+      }
+    })
+  })
+
   //提交表单
   $(document).on("click","#create",function(){
     //获取所有表单数据
@@ -157,28 +168,6 @@
         var data = result.data;
         alert("创建成功");
         window.location.reload();
-      },
-      error:function(error){
-        alert(error.message);
-        console.log(error);
-      }
-    })
-  })
-
-  $(function(){
-    //获取项目列表
-    var data = {};
-    var url = "/app/list";
-    var type = "GET"; 
-    sendQuery(url,type,data,{
-      success:function(result){
-        console.log(result);
-        var data = result.data;
-        var list = '';
-        for(var i = 0; i < data.length; i++){
-          list+='<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><div class="api-item" data-id="'+data[i].objectId+'"><div class="api-item-meta">'+data[i].app_name+'</div></div></div>';
-        }
-        $(".app-content").empty().append(list);
       },
       error:function(error){
         alert(error.message);
