@@ -318,3 +318,9 @@ li img {
 	height: inherit;
 	border: inherit;
 }
+
+#add .check{
+    position: relative;
+    top:5px;
+    left:10px;
+}
