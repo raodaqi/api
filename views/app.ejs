@@ -140,20 +140,22 @@
       //请求参数
       var api_para = [];
       $(".parameter-li").each(function (i,v) {
-          var api_para_li = {
-              para_name:$(this).children(".para-name").val(),
-              para_type:$(this).children(".para-type").val(),
-              para_desc:$(this).children(".para-desc").val(),
-              para_remark:$(this).children(".para-remark").val(),
-              para_must:$(this).find(".para-must").parent().hasClass("checked")
+          if($(this).children(".para-name").val()){
+              var api_para_li = {
+                  para_name:$(this).children(".para-name").val(),
+                  para_type:$(this).children(".para-type").val(),
+                  para_desc:$(this).children(".para-desc").val(),
+                  para_remark:$(this).children(".para-remark").val(),
+                  para_must:$(this).find(".para-must").parent().hasClass("checked")
+              }
+              api_para.push(api_para_li);
           }
-          api_para.push(api_para_li);
       })
       //HTTP请求方式
       var api_demo = $("#api-demo").val();
 
       var data = {
-          appid       : id,
+          app_id       : id,
           api_name    : api_name,
           api_type    : api_type,
           api_desc    : api_desc,
@@ -198,21 +200,40 @@
     console.log(id);
     
 
-    //获取项目列表
-    var data = {id:id};
-    var url = "/app/detail";
-    var type = "GET"; 
-    sendQuery(url,type,data,{
-      success:function(result){
-        //获取当前项目名称
-        var data = result.data;
-        // $(".logo").text(data.app_name);
-      },
-      error:function(error){
-        alert(error.message);
-        console.log(error);
-      }
-    })
+     if(id){
+         //获取项目列表
+         var data = {id:id};
+         var url = "/app/detail";
+         var type = "GET";
+         sendQuery(url,type,data,{
+             success:function(result){
+                 //获取当前项目名称
+                 var data = result.data;
+                 // $(".logo").text(data.app_name);
+             },
+             error:function(error){
+                 alert(error.message);
+                 console.log(error);
+             }
+         })
+
+         //获取项目所有的api
+         var data = {app_id:id};
+         var url = "/api/list";
+         var type = "GET";
+         sendQuery(url,type,data,{
+             success:function(result){
+                 //获取当前项目名称
+                 var data = result.data;
+                 console.log(data);
+                 //便利
+             },
+             error:function(error){
+                 alert(error.message);
+                 console.log(error);
+             }
+         })
+     }
   })
 
   //提交表单

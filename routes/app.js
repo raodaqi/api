@@ -76,7 +76,7 @@ router.get('/list', function(req, res, next) {
   	var query = new AV.Query(APP);
   	query.descending('createdAt');
   	query.find().then(function(results) {
-    	console.log(results);
+//    	console.log(results);
     	//判断是否存在
     	var result = {
 			code : 200,
@@ -102,7 +102,7 @@ router.get('/detail', function(req, res, next) {
 	}
   	var query = new AV.Query(APP);
   	query.get(id).then(function(results) {
-    	console.log(results);
+//    	console.log(results);
     	//判断是否存在
     	var result = {
 			code : 200,
