@@ -111,7 +111,7 @@ body {
 .menu-li {
     color: #808080;
     padding-bottom: 5px;
-    padding-left: 27px;
+    /*padding-left: 27px;*/
 }
 
 li img {
@@ -323,4 +323,8 @@ li img {
     position: relative;
     top:5px;
     left:10px;
+}
+
+.ml-10{
+    margin-left: 10px;
 }

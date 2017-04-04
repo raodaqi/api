@@ -33,70 +33,76 @@
 <body>
 
 <div class="content">
-  <div class="col-sm-10 api-content">
-    <section class="sec-content apiactive" id="add" style="display:block">
-      <p>API名称:</p>
-      <div class="code-content">
-        <input type="text" name="api_name" id="api-name" placeholder="获取XX信息">
-      </div>
-      <p>API所属类别:</p>
-      <div class="code-content">
-        <input type="text" name="app_type" id="api-type" placeholder="轮播图API">
-        <div class="type-list">
-          <!--<div class="type-li">轮播图</div>-->
-          <!--<div class="type-li">轮播图</div>-->
-          <!--<div class="type-li">轮播图</div>-->
+    <div class="api-container">
+        <div class="col-sm-2 api-menu">
+            <ul class="menu">
+            </ul>
         </div>
-      </div>
-      <p>描述:</p>
-      <div class="code-content">
-        <input type="text" name="api_desc" id="api-desc" placeholder="获取XX的XX详情">
-      </div>
-      <p>URI:</p>
-      <div class="code-content">
-        <input type="text" name="api_url" id="api-url" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
-      </div>
-      <p>HTTP请求方式</p>
-      <div class="code-content">
-        <!-- Single button -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="dropdown-text" id="api-request">GET</span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a >GET</a></li>
-            <li><a >POST</a></li>
-          </ul>
-        </div>
-      </div>
-      <p>请求参数</p>
-      <div class="code-content">
-        <div class="parameter-list">
-          <div class="parameter-li">
-            <input type="text" class="para-name"  style="width:150px;"  placeholder="参数名">
-            <input type="text" class="para-type"  style="width:150px;"  placeholder="参数类型">
-            <input type="text" class="para-desc"  style="width:150px;"  placeholder="参数描述">
-            <input type="text" class="para-remark"  style="width:150px;"  placeholder="参数备注">
-            <div class="check">
-              <input type="checkbox" class="para-must"  checked>
-              <label for="input-1">必须参数</label>
-            </div>
-            <div class="iconfont icon-x"></div>
-          </div>
-        </div>
-        <div class="mt-20">
-          <button type="button" class="btn btn-primary add">添加</button>
-        </div>
-      </div>
-      <p>调用示例</p>
-      <div class="code-content">
-        <input type="text" id="api-demo" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
-      </div>
+        <div class="col-sm-10 api-content">
+            <section class="sec-content apiactive" id="add" style="display:block">
+                <p>API名称:</p>
+                <div class="code-content">
+                    <input type="text" name="api_name" id="api-name" placeholder="获取XX信息">
+                </div>
+                <p>API所属类别:</p>
+                <div class="code-content">
+                    <input type="text" name="app_type" id="api-type" placeholder="轮播图API">
+                    <div class="type-list">
+                        <!--<div class="type-li">轮播图</div>-->
+                        <!--<div class="type-li">轮播图</div>-->
+                        <!--<div class="type-li">轮播图</div>-->
+                    </div>
+                </div>
+                <p>描述:</p>
+                <div class="code-content">
+                    <input type="text" name="api_desc" id="api-desc" placeholder="获取XX的XX详情">
+                </div>
+                <p>URI:</p>
+                <div class="code-content">
+                    <input type="text" name="api_url" id="api-url" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
+                </div>
+                <p>HTTP请求方式</p>
+                <div class="code-content">
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="dropdown-text" id="api-request">GET</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a >GET</a></li>
+                            <li><a >POST</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p>请求参数</p>
+                <div class="code-content">
+                    <div class="parameter-list">
+                        <div class="parameter-li">
+                            <input type="text" class="para-name"  style="width:150px;"  placeholder="参数名">
+                            <input type="text" class="para-type"  style="width:150px;"  placeholder="参数类型">
+                            <input type="text" class="para-desc"  style="width:150px;"  placeholder="参数描述">
+                            <input type="text" class="para-remark"  style="width:150px;"  placeholder="参数备注">
+                            <div class="check">
+                                <input type="checkbox" class="para-must"  checked>
+                                <label for="input-1">必须参数</label>
+                            </div>
+                            <div class="iconfont icon-x"></div>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <button type="button" class="btn btn-primary add">添加</button>
+                    </div>
+                </div>
+                <p>调用示例</p>
+                <div class="code-content">
+                    <input type="text" id="api-demo" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
+                </div>
 
-      <button type="button" class="btn btn-primary btn-lg mt-50 btn-block create">创建</button>
-    </section>
-  </div>
+                <button type="button" class="btn btn-primary btn-lg mt-50 btn-block create">创建</button>
+            </section>
+        </div>
+    </div>
 </div>
 
 <% include footer.ejs %>
@@ -226,7 +232,8 @@
                  //获取当前项目名称
                  var data = result.data;
                  console.log(data);
-                 //便利
+                 //遍历数据
+                 formateData(data);
              },
              error:function(error){
                  alert(error.message);
@@ -235,6 +242,37 @@
          })
      }
   })
+  
+  function formateData(data) {
+      var menu = '';
+      for(var i = 0; i < data.length; i++){
+          var title = '<li class="title bold">'+data[i].api_type+'</li>';
+          for(var j = 0 ; j < data[i].api.length;j++){
+              //遍历api
+              var api = '<li class="menu-li '+data[i].api[j].objectId+'"><a href="#'+data[i].api[j].objectId+'">'+data[i].api[j].api_name+'</a></li>';
+              title+=api;
+
+              //添加内容
+              var section = '<section class="sec-content" id="'+data[i].api[j].objectId+'">'+
+                            '<h1 class="sec-title">'+data[i].api[j].api_name+'</h1>'+
+                            '<p>描述:</p>'+
+                            '<div class="code-content">'+data[i].api[j].api_desc+'</div>'+
+                            '<p>URI:</p>'+
+                            '<div class="code-content">'+data[i].api[j].api_url+'</div>'+
+                            '<p>HTTP请求方式</p>'+
+                            '<div class="code-content">'+data[i].api[j].api_request+'</div>'+
+                            '<p> 调用示例 </p>'+
+                            '<div class="code-content">'+ data[i].api[j].api_request +
+                            '<a class="ml-10" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
+                            '<p> 返回结果 </p>'+
+                            '<div class="code-content"></div>'+
+                            '</section>';
+              $(".api-content").append(section);
+          }
+          menu += title;
+      }
+      $(".menu").empty().append(menu);
+  }
 
   //提交表单
   $(document).on("click","#create",function(){
