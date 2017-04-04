@@ -153,6 +153,7 @@
       var api_demo = $("#api-demo").val();
 
       var data = {
+          appid       : id,
           api_name    : api_name,
           api_type    : api_type,
           api_desc    : api_desc,
@@ -162,8 +163,23 @@
           api_demo    : api_demo
       }
       console.log(data);
+      //获取项目列表
+      var url = "/api/add";
+      var type = "GET";
+      sendQuery(url,type,data,{
+          success:function(result){
+              //获取当前项目名称
+              var data = result.data;
+              // $(".logo").text(data.app_name);
+          },
+          error:function(error){
+              alert(error.message);
+              console.log(error);
+          }
+      })
   })
 
+  var id = '';
   //请求该api接口
   $(function(){
     $('.check input').iCheck({
@@ -175,7 +191,7 @@
     // var appid = 
     var search = location.search;
     if(search){
-      var id = search.split("?appid=")[1];
+      id = search.split("?appid=")[1];
     }else{
       location.href="/";
     }
