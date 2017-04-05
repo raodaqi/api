@@ -80,7 +80,7 @@
         var data = result.data;
         var list = '';
         for(var i = 0; i < data.length; i++){
-          list+='<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><div class="api-item" data-id="'+data[i].objectId+'"><div class="api-item-meta">'+data[i].app_name+'</div></div></div>';
+          list+='<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><div class="api-item"><div class="api-item-meta" data-id="'+data[i].objectId+'">'+data[i].app_name+'</div><i class="iconfont icon-set"></i></div></div>';
         }
         $(".app-content").empty().append(list);
       },
@@ -92,11 +92,13 @@
   })
 
   //点击项目名称进入项目
-  $(document).on("click",".api-item",function(){
+  $(document).on("click",".api-item-meta",function(){
     var id = $(this).attr("data-id");
     if(id){
       window.location.href = "/app?appid="+id;
     }
   })
+
+  //点击设置按钮逻辑
 </script>
 </html>
