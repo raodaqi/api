@@ -126,30 +126,20 @@ router.get('/delete', function(req, res, next) {
         sendError(res,457,"缺少项目id");
         return;
     }
-    var todo = AV.Object.createWithoutData('Todo', '57328ca079bc44005c2472d0');
+    var todo = AV.Object.createWithoutData('APP', id);
     todo.destroy().then(function (success) {
         // 删除成功
-    }, function (error) {
-        // 删除失败
-    });
-
-    var query = new AV.Query(APP);
-    query.get(id).then(function(results) {
-//    	console.log(results);
         //判断是否存在
         var result = {
             code : 200,
-            data : results,
+            data : [],
             message : "success"
         }
         res.send(result);
-    }, function(err) {
-        if (err.code === 101) {
-            res.send(err);
-        } else {
-            next(err);
-        }
-    }).catch(next);
+    }, function (error) {
+        // 删除失败
+        res.send(error);
+    });
 });
 
 module.exports = router;

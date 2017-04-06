@@ -178,11 +178,12 @@
           success:function(result){
               //获取当前项目名称
               var data = result.data;
+              layer.msg('添加成功', {icon: 1});
+              window.location.reload();
               // $(".logo").text(data.app_name);
           },
           error:function(error){
-              alert(error.message);
-              console.log(error);
+              layer.msg(error.message, {icon: 2});
           }
       })
   })

@@ -76,20 +76,38 @@
       </form>
   </div>
 <% include footer.ejs %>
-  <script src="/layer/layer.js"></script>
 <script>
     $(document).on("click",".icon-delete",function(){
+        var that = this;
         //询问框
         layer.confirm('确定要删除这个项目吗？', {
             btn: ['删除','取消'] //按钮
         }, function(){
-            layer.msg('的确很重要', {icon: 1});
+//            layer.msg('的确很重要', {icon: 1});
+            var id = $(that).parent().children(".api-item-meta").attr("data-id");
+            var data = {id:id};
+            var url = "/app/delete";
+            var type = "GET";
+            sendQuery(url,type,data,{
+                success:function(result){
+                    //获取当前项目名称
+                    var data = result.data;
+                    layer.msg('删除成功', {icon: 1});
+                    $(that).parent().remove();
+                },
+                error:function(error){
+                    layer.msg(error.message, {icon: 2});
+                }
+            })
         }, function(){
 
         });
 
         $(".layui-layer-btn").css({
             "font-size":"15px"
+        })
+        $(".layui-layer-msg").css({
+            "width":"180px;"
         })
     })
 
