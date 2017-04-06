@@ -93,30 +93,63 @@ router.get('/list', function(req, res, next) {
 	}).catch(next);
 });
 
-// 查询 Todo 列表
+// 查询详情
 router.get('/detail', function(req, res, next) {
-	var id = req.query.id;
-	if(!id){
-		sendError(res,457,"缺少项目id");
-		return;
-	}
-  	var query = new AV.Query(APP);
-  	query.get(id).then(function(results) {
+    var id = req.query.id;
+    if(!id){
+        sendError(res,457,"缺少项目id");
+        return;
+    }
+    var query = new AV.Query(APP);
+    query.get(id).then(function(results) {
 //    	console.log(results);
-    	//判断是否存在
-    	var result = {
-			code : 200,
-			data : results,
-			message : "success"
-		}
-		res.send(result);
-  	}, function(err) {
-    	if (err.code === 101) {
-			res.send(err);
-	    } else {
-	      next(err);
-	    }
-	}).catch(next);
+        //判断是否存在
+        var result = {
+            code : 200,
+            data : results,
+            message : "success"
+        }
+        res.send(result);
+    }, function(err) {
+        if (err.code === 101) {
+            res.send(err);
+        } else {
+            next(err);
+        }
+    }).catch(next);
+});
+
+// 查询详情
+router.get('/delete', function(req, res, next) {
+    var id = req.query.id;
+    if(!id){
+        sendError(res,457,"缺少项目id");
+        return;
+    }
+    var todo = AV.Object.createWithoutData('Todo', '57328ca079bc44005c2472d0');
+    todo.destroy().then(function (success) {
+        // 删除成功
+    }, function (error) {
+        // 删除失败
+    });
+
+    var query = new AV.Query(APP);
+    query.get(id).then(function(results) {
+//    	console.log(results);
+        //判断是否存在
+        var result = {
+            code : 200,
+            data : results,
+            message : "success"
+        }
+        res.send(result);
+    }, function(err) {
+        if (err.code === 101) {
+            res.send(err);
+        } else {
+            next(err);
+        }
+    }).catch(next);
 });
 
 module.exports = router;

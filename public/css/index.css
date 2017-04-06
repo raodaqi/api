@@ -100,11 +100,20 @@
       position: absolute;
       font-size: 24px;
       right: 10px;
-      top: 5px;
+      top: 2px;
       opacity: 0.3;
       z-index: 2;
   }
+  .icon-delete{
+    color: red;
+    position: absolute;
+    font-size: 24px;
+    right: 10px;
+    bottom: 2px;
+    opacity: 0.3;
+    z-index: 2;
+  }
 
-  .icon-set:hover{
+  .iconfont:hover{
       opacity: 1;
   }

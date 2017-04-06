@@ -97,15 +97,16 @@ router.get('/list', function(req, res, next) {
             if(api_type){
                 for(var j = 0; j <= dataArray.length;j++){
                     if(dataArray[j] && dataArray[j].api_type == api_type){
-                        console.log("456");
+                        apiList[i].set('api_para', JSON.parse(apiList[i].attributes.api_para));
                         dataArray[j].api.push(apiList[i]);
+                        break;
                     }
                     if(j == dataArray.length){
-                        console.log("789");
                         dataArray[j] = {
                             api_type : api_type,
                             api : []
                         }
+                        apiList[i].set('api_para', JSON.parse(apiList[i].attributes.api_para));
                         dataArray[j].api.push(apiList[i]);
                         break;
                     }

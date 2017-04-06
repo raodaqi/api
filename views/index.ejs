@@ -76,7 +76,23 @@
       </form>
   </div>
 <% include footer.ejs %>
+  <script src="/layer/layer.js"></script>
 <script>
+    $(document).on("click",".icon-delete",function(){
+        //询问框
+        layer.confirm('确定要删除这个项目吗？', {
+            btn: ['删除','取消'] //按钮
+        }, function(){
+            layer.msg('的确很重要', {icon: 1});
+        }, function(){
+
+        });
+
+        $(".layui-layer-btn").css({
+            "font-size":"15px"
+        })
+    })
+
   //提交表单
   $(document).on("click","#create",function(){
     //获取所有表单数据
@@ -110,7 +126,7 @@
         var data = result.data;
         var list = '';
         for(var i = 0; i < data.length; i++){
-          list+='<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><div class="api-item"><div class="api-item-meta" data-id="'+data[i].objectId+'">'+data[i].app_name+'</div><i class="iconfont icon-set"></i></div></div>';
+          list+='<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><div class="api-item"><div class="api-item-meta" data-id="'+data[i].objectId+'">'+data[i].app_name+'</div><i class="iconfont icon-set"></i><i class="iconfont icon-delete"></i></div></div>';
         }
         $(".app-content").empty().append(list);
         appList = result.data;
