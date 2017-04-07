@@ -11,6 +11,30 @@ function sendError(res,code,message){
 	res.send(result);
 }
 
+function validate(res,req,type,data){
+    for(var i in data){
+        if(type == "GET"){
+            var value = req.query[i];
+        }else{
+            var value = req.body[i];
+        }
+        if(data[i]){
+            //必须值
+            if(!value){
+                var result = {
+                    code : "302",
+                    message : data[i],
+                    data : []
+                }
+                res.send(result);
+                return "";
+            }
+        }
+        data[i] = value;
+    }
+    return data;
+}
+
 var APP = AV.Object.extend('APP');
 
 // 查询 Todo 列表
@@ -71,6 +95,37 @@ router.get('/create', function(req, res, next) {
 	}).catch(next);
 });
 
+// 编辑内容
+router.get('/edit', function(req, res, next) {
+    var data = {
+        app_id            : "appid不能为空",
+        edit_app_name     : "项目名称不能为空",
+        edit_app_desc     : ""
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+
+    var app = AV.Object.createWithoutData('APP', data.app_id);
+    app.set("app_name",data.edit_app_name);
+    app.set("app_desc",data.edit_app_desc);
+    app.save().then(function (app) {
+        var result = {
+            code : 200,
+            data : app,
+            message : "success"
+        }
+        res.send(result);
+    }, function (error) {
+        var result = {
+            code : 500,
+            message : "保存出错"
+        }
+        res.send(result);
+    });
+});
+
 // 查询 Todo 列表
 router.get('/list', function(req, res, next) {
   	var query = new AV.Query(APP);
@@ -122,6 +177,9 @@ router.get('/detail', function(req, res, next) {
 // 查询详情
 router.get('/delete', function(req, res, next) {
     var id = req.query.id;
+    var app_name = req.query.app_name;
+    var app_desc = req.query.app_desc;
+
     if(!id){
         sendError(res,457,"缺少项目id");
         return;
@@ -141,5 +199,7 @@ router.get('/delete', function(req, res, next) {
         res.send(error);
     });
 });
+
+
 
 module.exports = router;

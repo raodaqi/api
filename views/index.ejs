@@ -58,6 +58,7 @@
                       <h4 class="modal-title" id="myModalLabel">编辑项目</h4>
                   </div>
                   <div class="modal-body">
+                      <input type="hidden" name="app_id" id="app_id">
                       <div class="form-group">
                           <label for="exampleInputEmail1">项目名称</label>
                           <input type="text" class="form-control" name="edit_app_name" id="edit_app_name">
@@ -69,7 +70,7 @@
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                      <button type="button" class="btn btn-primary" id="create">更改</button>
+                      <button type="button" class="btn btn-primary" id="edit">更改</button>
                   </div>
               </div>
           </div>
@@ -121,15 +122,32 @@
       success:function(result){
         console.log(result);
         var data = result.data;
-        alert("创建成功");
+        layer.msg('创建成功', {icon: 1});
         window.location.reload();
       },
       error:function(error){
-        alert(error.message);
-        console.log(error);
+          layer.msg(error.message, {icon: 2});
       }
     })
   })
+    //提交表单
+    $(document).on("click","#edit",function(){
+        //获取所有表单数据
+        var data = $("#editForm").serializeArray();
+        var url = "/app/edit";
+        var type = "GET";
+        sendQuery(url,type,data,{
+            success:function(result){
+                console.log(result);
+                var data = result.data;
+                layer.msg('更改成功', {icon: 1});
+                window.location.reload();
+            },
+            error:function(error){
+                layer.msg(error.message, {icon: 2});
+            }
+        })
+    })
 
   var appList = [];
 
@@ -171,6 +189,7 @@
 //          window.location.href = "/app?appid="+id;
           for(var i = 0; i < appList.length;i++){
               if(appList[i].objectId == id){
+                  $("#app_id").val(id);
                   $("#edit_app_name").val(appList[i].app_name);
                   $("#edit_app_desc").val(appList[i].app_desc);
               }
