@@ -18,6 +18,14 @@
     color: red;
     cursor: pointer;
   }
+  .btn-content{
+    text-align: center;
+      margin-top: 50px;
+  }
+  .btn-content .btn{
+      width: 150px;
+      margin:0 20px;
+  }
 </style>
 <nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation" id="title">
   <div class="navbar-header page-scroll">
@@ -253,6 +261,27 @@
               var api = '<li class="menu-li '+data[i].api[j].objectId+'"><a href="#'+data[i].api[j].objectId+'">'+data[i].api[j].api_name+'</a></li>';
               title+=api;
 
+              //判断是否有参数值
+              var paraContent = ''
+              for(var k = 0; k < data[i].api[j].api_para.length; k++){
+                  var paraData = data[i].api[j].api_para[k];
+                  paraContent+='<p>'+
+                      paraData.para_name+
+                      ' <span class="ml-10">['+
+                      paraData.para_desc+
+                      '</span> <span class="ml-10">'+
+                      paraData.para_type+
+                      ']</span> <span class="ml-10">('+
+                      paraData.para_remark+
+                      ')</span> <span class="ml-10 color-r">'+
+                      (paraData.para_must ? "必须":"")+
+                      '</span></p>';
+              }
+
+              if(paraContent){
+                  paraContent = '<p>请求参数</p><div class="code-content">'+paraContent+'</div>';
+              }
+
               //添加内容
               var section = '<section class="sec-content" id="'+data[i].api[j].objectId+'">'+
                             '<h1 class="sec-title">'+data[i].api[j].api_name+'</h1>'+
@@ -262,11 +291,16 @@
                             '<div class="code-content">'+data[i].api[j].api_url+'</div>'+
                             '<p>HTTP请求方式</p>'+
                             '<div class="code-content">'+data[i].api[j].api_request+'</div>'+
+                            paraContent+
                             '<p> 调用示例 </p>'+
                             '<div class="code-content">'+ data[i].api[j].api_request +
                             '<a class="ml-10" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
                             '<p> 返回结果 </p>'+
                             '<div class="code-content"></div>'+
+                            '<div class="btn-content" data-id="'+data[i].api[j].objectId+'">'+
+                            '<button class="btn btn-danger btn-delete" type="submit">删除</button>'+
+                            '<button class="btn btn-info btn-edit" type="submit">编辑</button>'+
+                            '</div>'+
                             '</section>';
               $(".api-content").append(section);
           }
@@ -274,6 +308,40 @@
       }
       $(".menu").empty().append(menu);
   }
+
+  $(document).on("click",".btn-delete",function(){
+      var that = this;
+      //询问框
+      layer.confirm('确定要删除这个项目吗？', {
+          btn: ['删除','取消'] //按钮
+      }, function(){
+//            layer.msg('的确很重要', {icon: 1});
+          var id = $(that).parent().attr("data-id");
+          var data = {id:id};
+          var url = "/api/delete";
+          var type = "GET";
+          sendQuery(url,type,data,{
+              success:function(result){
+                  //获取当前项目名称
+                  var data = result.data;
+                  layer.msg('删除成功', {icon: 1});
+                  window.location.reload();
+              },
+              error:function(error){
+                  layer.msg(error.message, {icon: 2});
+              }
+          })
+      }, function(){
+
+      });
+
+      $(".layui-layer-btn").css({
+          "font-size":"15px"
+      })
+      $(".layui-layer-msg").css({
+          "width":"180px;"
+      })
+  })
 
   //提交表单
   $(document).on("click","#create",function(){

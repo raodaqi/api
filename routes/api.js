@@ -130,4 +130,31 @@ router.get('/list', function(req, res, next) {
     });
 });
 
+// 查询详情
+router.get('/delete', function(req, res, next) {
+    var id = req.query.id;
+
+    var data = {
+        id   : "api的id不能为空"
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+    var api = AV.Object.createWithoutData('API', data.id);
+    api.destroy().then(function (success) {
+        // 删除成功
+        //判断是否存在
+        var result = {
+            code : 200,
+            data : [],
+            message : "success"
+        }
+        res.send(result);
+    }, function (error) {
+        // 删除失败
+        res.send(error);
+    });
+});
+
 module.exports = router;
