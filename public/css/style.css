@@ -287,11 +287,11 @@ li img {
     margin-left: 30px;
 }
 
-#add .code-content{
+#apimanage_add .code-content{
 	padding:15px 20px;
 }
 
-#add input{
+#apimanage_add input{
 	width: 100%;
 	border:0;
 	height: 100%;
@@ -299,27 +299,27 @@ li img {
 	border-radius: 5px;
 }
 
-#add .check{
+#apimanage_add .check{
 	display: inline-block;
 }
 
-#add .check div{
+#apimanage_add .check div{
 	display: inline-block;
 }
-#add .check label{
+#apimanage_add .check label{
 	position: relative;
 	bottom:4px;
 	font-weight: 100;
 	margin: 0;
 }
 
-#add .check input{
+#apimanage_add .check input{
 	width: inherit;
 	height: inherit;
 	border: inherit;
 }
 
-#add .check{
+#apimanage_add .check{
     position: relative;
     top:5px;
     left:10px;

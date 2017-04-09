@@ -71,6 +71,46 @@ router.get('/add', function(req, res, next) {
     });
 });
 
+// 查询 Todo 列表
+router.get('/edit', function(req, res, next) {
+    //获取当前的appid
+//    var appid = req.query.appid;
+    var data = {
+        api_id      : "api_id不能为空",   
+        app_id      : "appid不能为空",
+        api_name    : "API名称不能为空",
+        api_type    : "API所属类别不能为空",
+        api_desc    : "",
+        api_url     : "APIURI不能为空",
+        api_request : "API请求方式不能为空",
+        api_para    : "",
+        api_demo    : ""
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+    console.log(data);
+    var api = AV.Object.createWithoutData('API', data.api_id);
+    for(var i in data){
+        api.set(i,data[i]);
+    }
+    api.save().then(function (api) {
+        var result = {
+            code : 200,
+            data : api,
+            message : "success"
+        }
+        res.send(result);
+    }, function (error) {
+        var result = {
+            code : 500,
+            message : "保存出错"
+        }
+        res.send(result);
+    });
+});
+
 //获取app下所有的api接口
 router.get('/list', function(req, res, next) {
     //获取当前的app_id
