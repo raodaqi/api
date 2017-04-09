@@ -189,6 +189,7 @@ li img {
 
 .code-content p {
     color: #839496;
+    word-break: break-all;
 }
 
 .bold {
@@ -327,6 +328,9 @@ li img {
 
 .ml-10{
     margin-left: 10px;
+}
+.ml-20{
+    margin-left: 20px;
 }
 
 .color-r{

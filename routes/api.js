@@ -1,6 +1,9 @@
 'use strict';
 var router = require('express').Router();
 var AV = require('leanengine');
+var charset = require('superagent-charset');
+var superagent = require('superagent');
+charset(superagent);
 
 var API = AV.Object.extend('API');
 // 查询 Todo 列表
@@ -33,6 +36,72 @@ function validate(res,req,type,data){
 }
 
 // 查询 Todo 列表
+router.get('/get_api_result', function(req, res, next) {
+    var data = {
+        api_id       : "api id不能为空",
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+    var query = new AV.Query('API');
+    query.get(data.api_id).then(function (api) {
+        // 成功获得实例
+        if(api){
+            //存在
+            //获取http请求方式
+            var api_request = api.attributes.api_request;
+            //获取调用链接
+            var api_url = api.attributes.api_url;
+            //获取请求链接
+            var api_para = JSON.parse(api.attributes.api_para);
+            var para = {};
+            for(var i = 0; i < api_para.length;i++){
+               para[api_para[i].para_name]  = api_para[i].para_remark
+            }
+            // console.log(para);
+
+            //发送请求
+            if(api_request == "GET"){
+                superagent.get(api_url)
+                    .query(para)
+                    .end((err, result) => {
+                      if(res.statusCode == 200){
+                        var result = JSON.parse(result.text);
+                        res.send(result);
+                      }else{
+                        res.send(err);
+                      }
+                    });
+            }else{
+                superagent.post(api_url)
+                    .send(para)
+                    .end((err, result) => {
+                      if(res.statusCode == 200){
+                        var result = JSON.parse(result.text);
+                        res.send(result);
+                      }else{
+                        res.send(err);
+                      }
+                    });
+            }
+        }else{
+            //不存在
+            var result = {
+                code : "403",
+                message:"该api不存在",
+                data:[]
+            }
+            res.send(result);
+        }
+
+    }, function (error) {
+        // 异常处理
+        res.send(error);
+    });
+})
+
+// 查询 Todo 列表
 router.get('/add', function(req, res, next) {
     //获取当前的appid
 //    var appid = req.query.appid;
@@ -50,7 +119,7 @@ router.get('/add', function(req, res, next) {
     if(!data){
         return;
     }
-    console.log(data);
+    // console.log(data);
     var api = new API();
     for(var i in data){
         api.set(i,data[i]);
@@ -90,7 +159,7 @@ router.get('/edit', function(req, res, next) {
     if(!data){
         return;
     }
-    console.log(data);
+    // console.log(data);
     var api = AV.Object.createWithoutData('API', data.api_id);
     for(var i in data){
         api.set(i,data[i]);
@@ -121,7 +190,7 @@ router.get('/list', function(req, res, next) {
     if(!data){
         return;
     }
-    console.log(data);
+    // console.log(data);
     var query = new AV.Query(API);
 
     for(var i in data){
@@ -132,7 +201,7 @@ router.get('/list', function(req, res, next) {
         var apiJson = {};
         var apiData = [];
         for(var i = 0; i < apiList.length;i++){
-            console.log(apiList[i].attributes.api_type);
+            // console.log(apiList[i].attributes.api_type);
             var api_type = apiList[i].attributes.api_type;
             if(api_type){
                 for(var j = 0; j <= dataArray.length;j++){
@@ -153,7 +222,7 @@ router.get('/list', function(req, res, next) {
                 }
             }
         }
-        console.log(dataArray);
+        // console.log(dataArray);
 
         var result = {
             code : 200,

@@ -55,11 +55,11 @@ router.get('/create', function(req, res, next) {
   	query.equalTo('app_name',app_name);
 
   	query.find().then(function(results) {
-    	console.log(results);
+    	// console.log(results);
     	//判断是否存在
     	if(results.length){
     		//存在
-    		console.log("存在");
+    		// console.log("存在");
     		var result = {
 			   	code : 601,
 			    message : "项目已存在"

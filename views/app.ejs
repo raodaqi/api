@@ -361,44 +361,72 @@
 
   //获取生成结果
   $(document).on("click",".make",function(){
-    //获取父元素
     var parent = $(this).parent().parent();
-    var that = this;
-    //获取http请求方式
-    var api_request = parent.find(".api-request").text();
-    //获取调用链接
-    var api_url = parent.find(".api-url").text();
-    //获取请求链接
-    var para = {}
     var id = parent.attr("id");
-    for(var i = 0; i < apiList.length;i++){
-      for(var j = 0; j < apiList[i].api.length;j++){
-        if(apiList[i].api[j].objectId == id){
-          var api_para = apiList[i].api[j].api_para;
-          console.log(api_para);
-          for(var k = 0; k < api_para.length; k++){
-            para[api_para[k].para_name] = api_para[k].para_remark;
-          }   
-        }
-      }
-    }
-    console.log(api_url);
-    console.log(para);
-
-    //判断是什么请求
-    var url = api_url;
-    var type = api_request;
-    sendQuery(url,type,para,{
+    var url = "/api/get_api_result";
+    var type = "GET";
+    var data = {api_id:id};
+    sendQuery(url,type,data,{
       success:function(result){
         //获取当前项目名称
         var data = result.data;
+        console.log(data);
         layer.msg('获取成功', {icon: 1});
-        parent.children(".api-result").text(result);
+        var resultView = '<p>{</p>'+
+                          '<p class="ml-20">"code":'+result.code+",</p>"+
+                          '<p class="ml-20">"message":'+result.message+",</p>"+
+                          '<p class="ml-20">"data":['+JSON.stringify(result.data[0])+"]</p>"+
+                          '<p>}</p>';
+        parent.children(".api-result").empty().append(resultView);
       },
       error:function(error){
         layer.msg(error.message, {icon: 2});
       }
     })
+
+    // //获取父元素
+    // var parent = $(this).parent().parent();
+    // var that = this;
+    // //获取http请求方式
+    // var api_request = parent.find(".api-request").text();
+    // //获取调用链接
+    // var api_url = parent.find(".api-url").text();
+    // //获取请求链接
+    // var para = {};
+    // var id = parent.attr("id");
+    // for(var i = 0; i < apiList.length;i++){
+    //   for(var j = 0; j < apiList[i].api.length;j++){
+    //     if(apiList[i].api[j].objectId == id){
+    //       var api_para = apiList[i].api[j].api_para;
+    //       console.log(api_para);
+    //       for(var k = 0; k < api_para.length; k++){
+    //         para[api_para[k].para_name] = api_para[k].para_remark;
+    //       }   
+    //     }
+    //   }
+    // }
+    // console.log(api_url);
+    // console.log(para);
+
+    // //判断是什么请求
+    // var url = api_url;
+    // var type = api_request;
+    // sendQuery(url,type,para,{
+    //   success:function(result){
+    //     //获取当前项目名称
+    //     var data = result.data;
+    //     layer.msg('获取成功', {icon: 1});
+    //     var resultView = '<p>{</p>'+
+    //                       '<p class="ml-20">"code":'+result.code+",</p>"+
+    //                       '<p class="ml-20">"message":'+result.message+",</p>"+
+    //                       '<p class="ml-20">"data":['+JSON.stringify(result.data[0])+"]</p>"+
+    //                       '<p>}</p>';
+    //     parent.children(".api-result").empty().append(resultView);
+    //   },
+    //   error:function(error){
+    //     layer.msg(error.message, {icon: 2});
+    //   }
+    // })
   })
 
   $(document).on("click",".btn-delete",function(){
