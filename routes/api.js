@@ -5,6 +5,128 @@ var charset = require('superagent-charset');
 var superagent = require('superagent');
 charset(superagent);
 
+var fs = require('fs');
+
+router.get('/test', function(req, res, next) {
+    //获取当前的app_id
+    var data = {
+        app_id       : "appid不能为空"
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+    // console.log(data);
+    var query = new AV.Query(API);
+
+    for(var i in data){
+        query.equalTo(i,data[i]);
+    }
+    query.find().then(function (apiList) {
+        var dataArray = [];
+        var apiJson = {};
+        var apiData = [];
+        for(var i = 0; i < apiList.length;i++){
+            // console.log(apiList[i].attributes.api_type);
+            var api_type = apiList[i].attributes.api_type;
+            if(api_type){
+                for(var j = 0; j <= dataArray.length;j++){
+                    if(dataArray[j] && dataArray[j].api_type == api_type){
+                        apiList[i].set('api_para', JSON.parse(apiList[i].attributes.api_para));
+                        dataArray[j].api.push(apiList[i]);
+                        break;
+                    }
+                    if(j == dataArray.length){
+                        dataArray[j] = {
+                            api_type : api_type,
+                            api : []
+                        }
+                        apiList[i].set('api_para', JSON.parse(apiList[i].attributes.api_para));
+                        dataArray[j].api.push(apiList[i]);
+                        break;
+                    }
+                }
+            }
+        }
+        //创建js文件内容
+        var jsText = '';
+
+        var commonMethod = '/*!\n' +
+                           ' * 向后台发送数据\n'+
+                           ' * url(String):请求链接\n'+
+                           ' * type(String):请求类型\n'+
+                           ' * data(Object):请求参数\n'+
+                           ' * callback(function):回调方法\n'+
+                           ' */\n';
+        commonMethod += 'function sendQuery(url,type,data,callback){\n'+
+                        '   $.ajax({\n'+
+                        '       type: type,\n'+
+                        '       url: url,\n'+
+                        '       data: data,\n'+
+                        '       dataType: "json",\n'+
+                        '       success:function(result){\n'+
+                        '           if(result.code == 200){\n'+
+                        '               callback.success(result);\n'+
+                        '           }else{\n'+
+                        '               callback.error(result);\n'+
+                        '           }\n'+
+                        '       },\n'+
+                        '       error:function(error){\n'+
+                        '           alert("服务器出错");\n'+
+                        '           callback.error(error);\n'+
+                        '       }\n'+
+                        '   })\n'+
+                        '}\n';
+        jsText += commonMethod;
+        for(var i = 0; i < dataArray.length;i++){
+            //第一层循环遍历api所属类型
+
+            //获取api_type名称，生成备注
+            var api = dataArray[i].api;
+            var type = '/*!\n *'+dataArray[i].api_type+'\n */\n';
+            //第二层循环遍历api
+            for(var j = 0; j < api.length; j++){
+                var apiData = api[j].attributes;
+                //获取所有参数
+                var paraText = '';
+                for(var k = 0; k < apiData.api_para.length; k++){
+                    var paraData = apiData.api_para[k];
+                    //生成参数text
+                    paraText+= ' *'+paraData.para_name+'('+paraData.para_type+') '+':'+paraData.para_desc+(paraData.para_must? ' 必须值':'')+'\n';
+                }
+                //生成方法注释
+                var apiMethodTip = '/*!\n *'+apiData.api_desc+'\n'+paraText+' */\n';
+                //生成方法
+
+                jsText += apiMethodTip;
+            }
+        }
+        console.log(jsText);
+
+        fs.writeFile( "test.js", jsText, function(){
+            console.log("123")
+        });
+
+        var result = {
+            code : 200,
+            data : dataArray,
+            message : "success"
+        }
+        res.send(result);
+    }, function (error) {
+        var result = {
+            code : 500,
+            message : "保存出错"
+        }
+        res.send(result);
+    });
+//    fs.writeFile( "test.js", "123", function(){
+//        console.log("123")
+//    });
+});
+
+
+
 var API = AV.Object.extend('API');
 // 查询 Todo 列表
 router.get('/', function(req, res, next) {
@@ -66,7 +188,7 @@ router.get('/get_api_result', function(req, res, next) {
                 superagent.get(api_url)
                     .query(para)
                     .end((err, result) => {
-                      if(res.statusCode == 200){
+                      if(result.statusCode == 200){
                         var result = JSON.parse(result.text);
                         res.send(result);
                       }else{
@@ -77,7 +199,7 @@ router.get('/get_api_result', function(req, res, next) {
                 superagent.post(api_url)
                     .send(para)
                     .end((err, result) => {
-                      if(res.statusCode == 200){
+                      if(result.statusCode == 200){
                         var result = JSON.parse(result.text);
                         res.send(result);
                       }else{
