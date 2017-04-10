@@ -98,7 +98,13 @@ router.get('/test', function(req, res, next) {
                 var apiMethodTip = '/*!\n *'+apiData.api_desc+'\n'+paraText+' */\n';
                 //生成方法
 
-                jsText += apiMethodTip;
+                var apiMethod = 'function '+apiData.api_name+'(data,callback){\n'+
+                                '   var url = "'+apiData.api_url+'";\n'+
+                                '   var type = '+apiData.api_request+';\n'+
+                                '   sendQuery(url,type,data,callback);\n'+
+                                '}\n';
+
+                jsText += apiMethodTip + apiMethod;
             }
         }
         console.log(jsText);
