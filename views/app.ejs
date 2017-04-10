@@ -36,7 +36,8 @@
       <div class="logo">APIMANAGE</div>
     </a>
     <div class="icon">
-        <label class="icon-item"><a href="#intro">API介绍</a></label>
+      <label class="js-down"><a href="" target="_blank">下载请求js</a></label>
+      <label class="icon-item"><a href="#intro">API介绍</a></label>
       <label class="icon-item apimanage_add"><a href="#apimanage_add">添加API</a></label>
     </div>
   </div>
@@ -139,6 +140,27 @@
             radioClass: 'iradio-blue'
         });
   })
+
+  //点击下载 下载生成js
+  // $(document).on("click",".js-down",function(){
+  //   var data = {
+  //         app_id      : id
+  //     }
+  //     //获取项目列表
+  //     var url = "/api/down";
+  //     var type = "GET";
+  //     sendQuery(url,type,data,{
+  //         success:function(result){
+  //             //获取当前项目名称
+  //             var data = result.data;
+  //             layer.msg('操作成功', {icon: 1});
+  //         },
+  //         error:function(error){
+  //             layer.msg(error.message, {icon: 2});
+  //         }
+  //     })
+  // })
+
   $(document).on("click",".icon-x",function(){
     $(this).parent().remove();
   })
@@ -258,6 +280,7 @@
     var search = location.search;
     if(search){
       id = search.split("?appid=")[1];
+      $(".js-down a").attr("href","/api/down?app_id="+id);
     }else{
       location.href="/";
     }

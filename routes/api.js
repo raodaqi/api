@@ -7,7 +7,7 @@ charset(superagent);
 
 var fs = require('fs');
 
-router.get('/test', function(req, res, next) {
+router.get('/down', function(req, res, next) {
     //获取当前的app_id
     var data = {
         app_id       : "appid不能为空"
@@ -107,18 +107,16 @@ router.get('/test', function(req, res, next) {
                 jsText += apiMethodTip + apiMethod;
             }
         }
-        console.log(jsText);
-
-        fs.writeFile( "test.js", jsText, function(){
-            console.log("123")
+        fs.writeFile( "public/files/apimanage."+data.app_id+".js", jsText, function(){
+            res.download("public/files/apimanage."+data.app_id+".js");
         });
 
-        var result = {
-            code : 200,
-            data : dataArray,
-            message : "success"
-        }
-        res.send(result);
+        // var result = {
+        //     code : 200,
+        //     data : dataArray,
+        //     message : "success"
+        // }
+        // res.send(result);
     }, function (error) {
         var result = {
             code : 500,
