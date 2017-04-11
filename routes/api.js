@@ -100,7 +100,7 @@ router.get('/down', function(req, res, next) {
 
                 var apiMethod = 'function '+apiData.api_name+'(data,callback){\n'+
                                 '   var url = "'+apiData.api_url+'";\n'+
-                                '   var type = '+apiData.api_request+';\n'+
+                                '   var type = "'+apiData.api_request+'";\n'+
                                 '   sendQuery(url,type,data,callback);\n'+
                                 '}\n';
 
