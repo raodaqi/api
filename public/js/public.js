@@ -32,7 +32,7 @@ $(document).on("click",".dropdown-menu li",function(){
         }
       },
       error:function(error){
-        alert("服务器出错");
+        layer.msg("服务器出错", {icon: 2});
         callback.error(error);
       }
     })

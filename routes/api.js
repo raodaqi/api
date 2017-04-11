@@ -133,7 +133,8 @@ router.get('/down', function(req, res, next) {
 router.get('/link', function(req, res, next) {
     //获取当前的app_id
     var data = {
-        app_id       : "appid不能为空"
+        app_id       : "appid不能为空",
+        type         : ''
     }
     var data = validate(res,req,"GET",data);
     if(!data){
@@ -230,7 +231,14 @@ router.get('/link', function(req, res, next) {
                 jsText += apiMethodTip + apiMethod;
             }
         }
-        res.send(jsText);
+
+        if(data.type == "down"){
+            fs.writeFile( "public/files/apimanage."+data.app_id+".js", jsText, function(){
+                res.download("public/files/apimanage."+data.app_id+".js");
+            });
+        }else{
+            res.send(jsText);
+        }
     }, function (error) {
         var result = {
             code : 500,

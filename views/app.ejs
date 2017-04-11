@@ -36,7 +36,7 @@
       <div class="logo">APIMANAGE</div>
     </a>
     <div class="icon">
-      <label class="js-down"><a href="" target="_blank">下载请求js</a></label>
+      <label class="js-down"><a href="" target="_blank">下载JS</a></label>
       <label class="icon-item"><a href="#intro">API介绍</a></label>
       <label class="icon-item apimanage_add"><a href="#apimanage_add">添加API</a></label>
     </div>
@@ -52,7 +52,8 @@
         </div>
         <div class="col-sm-10 api-content">
             <section class="sec-content apiactive" id="intro" style="display:block">
-                <h1 class="sec-title">平台介绍</h1>
+            <h1 class="sec-title">平台介绍</h1>
+            <p class="color-o size-16 js-link"></p>
             </section>
             <section class="sec-content" id="apimanage_add">
                 <input type="hidden" name="api_id" id="api-id">
@@ -107,10 +108,10 @@
                         <button type="button" class="btn btn-primary add">添加</button>
                     </div>
                 </div>
-                <!-- <p>调用示例</p>
+                <p>调用示例</p>
                 <div class="code-content">
                     <input type="text" id="api-demo" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
-                </div> -->
+                </div>
 
                 <button type="button" class="btn btn-primary btn-lg mt-50 btn-block create">创建</button>
             </section>
@@ -280,7 +281,9 @@
     var search = location.search;
     if(search){
       id = search.split("?appid=")[1];
-      $(".js-down a").attr("href","/api/down?app_id="+id);
+      $(".js-down a").attr("href","/api/link?app_id="+id+"&type=down");
+      //生成js引入链接
+      $(".js-link").html('&lt;script type="text/javascript" src="http://apimanage.leanapp.cn/api/link?app_id='+id+'"> &lt;script>');
     }else{
       location.href="/";
     }
@@ -299,7 +302,8 @@
                  $("#intro").append("<p>"+data.app_desc+"</p>");
              },
              error:function(error){
-                 alert(error.message);
+                 // alert(error.message);
+                 layer.msg(error.message, {icon: 2});
                  console.log(error);
              }
          })
@@ -318,7 +322,8 @@
                  formateData(data);
              },
              error:function(error){
-                 alert(error.message);
+                 // alert(error.message);
+                 layer.msg(error.message, {icon: 2});
                  console.log(error);
              }
          })
@@ -365,9 +370,9 @@
                             '<p>HTTP请求方式</p>'+
                             '<div class="code-content api-request">'+data[i].api[j].api_request+'</div>'+
                             paraContent+
-                            // '<p> 调用示例 </p>'+
-                            // '<div class="code-content">'+ data[i].api[j].api_request +
-                            // '<a class="ml-10 api-demo" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
+                            '<p> 调用示例 </p>'+
+                            '<div class="code-content">'+ data[i].api[j].api_request +
+                            '<a class="ml-10 api-demo" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
                             '<p> 返回结果 <span class="btn btn-success make ml-10">生成结果</span></p>'+
                             '<div class="code-content api-result"></div>'+
                             '<div class="btn-content" data-id="'+data[i].api[j].objectId+'">'+
@@ -526,8 +531,8 @@
                   $("#api-request").text(api_request);  
 
                   //调用示例
-                  // var api_demo = apiList[i].api[j].api_demo;
-                  // $("#api-demo").val(api_demo);    
+                  var api_demo = apiList[i].api[j].api_demo;
+                  $("#api-demo").val(api_demo);    
 
                   var api_para = apiList[i].api[j].api_para;
                   console.log(api_para);

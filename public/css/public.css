@@ -136,3 +136,7 @@ button,a,.modal{
 .mt-20{margin-top: 20px;}
 .ml-30{margin-left: 30px;}
 .mt-50{margin-top: 50px;}
+
+.size-16{
+  font-size: 16px;
+}

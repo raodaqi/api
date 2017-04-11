@@ -24,29 +24,3 @@ function sendQuery(url,type,data,callback){
        }
    })
 }
-/*!
- *获取该平台所有项目的接口
- */
-function getAPPList(data,callback){
-   var url = "http://apimanage.leanapp.cn/app/list";
-   var type = GET;
-   sendQuery(url,type,data,callback);
-}
-/*!
- *获取api的结果
- *api_id(string) :api的objectid 必须值
- */
-function getAPIResult(data,callback){
-   var url = "http://apimanage.leanapp.cn/api/get_api_result";
-   var type = GET;
-   sendQuery(url,type,data,callback);
-}
-/*!
- *获取该项目内所有接口
- *app_id(string) :项目id 必须值
- */
-function 获取项目内所有接口(data,callback){
-   var url = "http://apimanage.leanapp.cn/api/list";
-   var type = GET;
-   sendQuery(url,type,data,callback);
-}
