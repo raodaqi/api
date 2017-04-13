@@ -108,10 +108,10 @@
                         <button type="button" class="btn btn-primary add">添加</button>
                     </div>
                 </div>
-                <p>调用示例</p>
+                <!-- <p>调用示例</p>
                 <div class="code-content">
                     <input type="text" id="api-demo" placeholder="http://moreapi.leanapp.cn/classtb/getProData">
-                </div>
+                </div> -->
 
                 <button type="button" class="btn btn-primary btn-lg mt-50 btn-block create">创建</button>
             </section>
@@ -370,9 +370,9 @@
                             '<p>HTTP请求方式</p>'+
                             '<div class="code-content api-request">'+data[i].api[j].api_request+'</div>'+
                             paraContent+
-                            '<p> 调用示例 </p>'+
-                            '<div class="code-content">'+ data[i].api[j].api_request +
-                            '<a class="ml-10 api-demo" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
+                            // '<p> 调用示例 </p>'+
+                            // '<div class="code-content">'+ data[i].api[j].api_request +
+                            // '<a class="ml-10 api-demo" href="'+data[i].api[j].api_demo+'" target="_blank">'+data[i].api[j].api_demo+'</a></div>'+
                             '<p> 返回结果 <span class="btn btn-success make ml-10">生成结果</span></p>'+
                             '<div class="code-content api-result"></div>'+
                             '<div class="btn-content" data-id="'+data[i].api[j].objectId+'">'+
@@ -531,8 +531,8 @@
                   $("#api-request").text(api_request);  
 
                   //调用示例
-                  var api_demo = apiList[i].api[j].api_demo;
-                  $("#api-demo").val(api_demo);    
+                  // var api_demo = apiList[i].api[j].api_demo;
+                  // $("#api-demo").val(api_demo);    
 
                   var api_para = apiList[i].api[j].api_para;
                   console.log(api_para);
