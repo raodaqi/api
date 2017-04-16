@@ -384,6 +384,78 @@ router.get('/add', function(req, res, next) {
     });
 });
 
+router.get('/addbynode', function(req, res, next) {
+    //获取当前的appid
+//    var appid = req.query.appid;
+    var data = {
+        app_id      : "appid不能为空",
+        api_name    : "API名称不能为空",
+        api_type    : "API所属类别不能为空",
+        api_desc    : "",
+        api_url     : "APIURI不能为空",
+        api_request : "API请求方式不能为空",
+        api_para    : "",
+        api_demo    : ""
+    }
+    var data = validate(res,req,"GET",data);
+    if(!data){
+        return;
+    }
+
+    var query = new AV.Query(API);
+    query.equalTo("app_id",data.app_id);
+    query.equalTo("api_name",data.api_name);
+    query.find().then(function (result) {
+        if(result.length){
+            // 存在
+            var api = AV.Object.createWithoutData('API', result[0].id);
+            for(var i in data){
+                api.set(i,data[i]);
+            }
+            api.save().then(function (api) {
+                var result = {
+                    code : 200,
+                    data : api,
+                    message : "更新成功"
+                }
+                res.send(result);
+            }, function (error) {
+                var result = {
+                    code : 500,
+                    message : "保存出错"
+                }
+                res.send(result);
+            });
+        }else{
+            //不存在
+            var api = new API();
+            for(var i in data){
+                api.set(i,data[i]);
+            }
+            api.save().then(function (api) {
+                var result = {
+                    code : 200,
+                    data : api,
+                    message : "创建成功"
+                }
+                res.send(result);
+            }, function (error) {
+                var result = {
+                    code : 500,
+                    message : "保存出错"
+                }
+                res.send(result);
+            });
+        }
+    }, function (error) {
+        var result = {
+            code : 500,
+            message : "保存出错"
+        }
+        res.send(result);
+    });
+});
+
 // 查询 Todo 列表
 router.get('/edit', function(req, res, next) {
     //获取当前的appid

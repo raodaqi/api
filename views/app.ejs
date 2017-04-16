@@ -248,7 +248,7 @@
         var url = "/api/edit";
       }else{
         //创建
-        var url = "/api/add";
+        var url = "/api/addbynode";
       }
       
       var type = "GET";
@@ -567,23 +567,23 @@
   })
 
   //提交表单
-  $(document).on("click","#create",function(){
-    //获取所有表单数据
-    var data = $("#form").serializeArray();
-    var url = "/app/create";
-    var type = "GET"; 
-    sendQuery(url,type,data,{
-      success:function(result){
-        console.log(result);
-        var data = result.data;
-        alert("创建成功");
-        window.location.reload();
-      },
-      error:function(error){
-        alert(error.message);
-        console.log(error);
-      }
-    })
-  })
+  // $(document).on("click","#create",function(){
+  //   //获取所有表单数据
+  //   var data = $("#form").serializeArray();
+  //   var url = "/app/create";
+  //   var type = "GET"; 
+  //   sendQuery(url,type,data,{
+  //     success:function(result){
+  //       console.log(result);
+  //       var data = result.data;
+  //       alert("创建成功");
+  //       window.location.reload();
+  //     },
+  //     error:function(error){
+  //       alert(error.message);
+  //       console.log(error);
+  //     }
+  //   })
+  // })
 </script>
 </html>
