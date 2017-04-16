@@ -283,7 +283,7 @@
       id = search.split("?appid=")[1];
       $(".js-down a").attr("href","/api/link?app_id="+id+"&type=down");
       //生成js引入链接
-      $(".js-link").html('&lt;script type="text/javascript" src="http://apimanage.leanapp.cn/api/link?app_id='+id+'"> &lt;script>');
+      $(".js-link").html('&lt;script type="text/javascript" src="http://apimanage.leanapp.cn/api/link?app_id='+id+'"> &lt;/script>');
     }else{
       location.href="/";
     }
