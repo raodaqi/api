@@ -231,7 +231,7 @@ router.get('/link', function(req, res, next) {
             }
         }
 
-        if(query.query.type == "down"){
+        if(req.query.type == "down"){
             fs.writeFile( "public/files/apimanage."+data.app_id+".js", jsText, function(){
                 res.download("public/files/apimanage."+data.app_id+".js");
             });
