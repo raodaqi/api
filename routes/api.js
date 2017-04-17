@@ -187,7 +187,7 @@ router.get('/link', function(req, res, next) {
                         '       if(para[i] && !data[i]){\n'+
                         '           var result = {\n'+
                         '               code:302,\n'+
-                        '               meesage:"缺少"+data[i],\n'+
+                        '               meesage:"缺少"+i,\n'+
                         '               data:[]\n'+
                         '           }\n'+
                         '           dfd.reject(result);\n'+
