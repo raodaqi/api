@@ -239,12 +239,10 @@ router.get('/link', function(req, res, next) {
                 var apiMethodTip = '/*!\n *'+apiData.api_desc+'\n'+paraText+' */\n';
                 //生成方法
 
-                var para = '{\n'+paraDesc+'}\n';
-
                 var apiMethod = 'function '+apiData.api_name+'(data){\n'+
                                 '   var url = "'+apiData.api_url+'";\n'+
                                 '   var type = "'+apiData.api_request+'";\n'+
-                                '   var para = {\n'+para+
+                                '   var para = {\n'+paraDesc+
                                 '   }\n';
                                 '   return sendQuery(url,type,data,para);\n'+
                                 '}\n';
