@@ -221,6 +221,7 @@ router.get('/link', function(req, res, next) {
                         '           }\n'+
                         '           dfd.reject(result);\n'+
                         '       })\n'+
+                        '   return dfd;'+
                         '}\n';
         jsText += commonMethod;
         for(var i = 0; i < dataArray.length;i++){
