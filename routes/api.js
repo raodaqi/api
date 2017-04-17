@@ -212,8 +212,7 @@ router.get('/link', function(req, res, next) {
                         '               data:[]\n'+
                         '           }\n'+
                         '           dfd.reject(result);\n'+
-                        '       }\n'+
-                        '   })\n'+
+                        '       })\n'+
                         '}\n';
         jsText += commonMethod;
         for(var i = 0; i < dataArray.length;i++){
