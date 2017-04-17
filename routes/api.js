@@ -205,8 +205,7 @@ router.get('/link', function(req, res, next) {
                         '           }else{\n'+
                         '               dfd.reject(result);\n'+
                         '           }\n'+
-                        '       },\n'+
-                        '       error:function(error){\n'+
+                        '       },function(error){\n'+
                         '           var result = {\n'+
                         '               code:404,\n'+
                         '               meesage:"服务器出错",\n'+
