@@ -233,7 +233,7 @@ router.get('/link', function(req, res, next) {
                     var paraData = apiData.api_para[k];
                     //生成参数text
                     paraText+= ' *'+paraData.para_name+'('+paraData.para_type+') '+':'+paraData.para_desc+(paraData.para_must? ' 必须值':'')+'\n';
-                    paraDesc += paraData.para_name+" : "+paraData.para_must+((k == apiData.api_para.length-1) ? "" : ",")+'\n';
+                    paraDesc +="    "+paraData.para_name+" : "+paraData.para_must+((k == apiData.api_para.length-1) ? "" : ",")+'\n';
                 }
                 //生成方法注释
                 var apiMethodTip = '/*!\n *'+apiData.api_desc+'\n'+paraText+' */\n';
@@ -244,7 +244,8 @@ router.get('/link', function(req, res, next) {
                 var apiMethod = 'function '+apiData.api_name+'(data){\n'+
                                 '   var url = "'+apiData.api_url+'";\n'+
                                 '   var type = "'+apiData.api_request+'";\n'+
-                                '   '+para+
+                                '   var para = {\n'+para+
+                                '   }\n';
                                 '   return sendQuery(url,type,data,para);\n'+
                                 '}\n';
 
