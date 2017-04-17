@@ -179,24 +179,40 @@ router.get('/link', function(req, res, next) {
                            ' * url(String):请求链接\n'+
                            ' * type(String):请求类型\n'+
                            ' * data(Object):请求参数\n'+
-                           ' * callback(function):回调方法\n'+
                            ' */\n';
-        commonMethod += 'function sendQuery(url,type,data,callback){\n'+
+        commonMethod += 'function sendQuery(url,type,data,para){\n'+
+                        '   var dfd = $.Deferred(); // 生成Deferred对象\n'+
+                        '   //判断值是否为空\n'+
+                        '   for(var i in para){\n'+
+                        '       if(para[i] && !data[i]){\n'+
+                        '           var result = {\n'+
+                        '               code:302,\n'+
+                        '               meesage:"缺少"+data[i],\n'+
+                        '               data:[]\n'+
+                        '           }\n'+
+                        '           dfd.reject(result);\n'+
+                        '           return dfd;\n'+
+                        '       }\n'+
+                        '   }\n'+
                         '   $.ajax({\n'+
                         '       type: type,\n'+
                         '       url: url,\n'+
                         '       data: data,\n'+
-                        '       dataType: "json",\n'+
-                        '       success:function(result){\n'+
+                        '       dataType: "json"\n'+
+                        '       }).then(function(result){\n'+
                         '           if(result.code == 200){\n'+
-                        '               callback.success(result);\n'+
+                        '               dfd.resolve(result);\n'+
                         '           }else{\n'+
-                        '               callback.error(result);\n'+
+                        '               dfd.reject(result);\n'+
                         '           }\n'+
                         '       },\n'+
                         '       error:function(error){\n'+
-                        '           alert("服务器出错");\n'+
-                        '           callback.error(error);\n'+
+                        '           var result = {\n'+
+                        '               code:404,\n'+
+                        '               meesage:"服务器出错",\n'+
+                        '               data:[]\n'+
+                        '           }\n'+
+                        '           dfd.reject(result);\n'+
                         '       }\n'+
                         '   })\n'+
                         '}\n';
@@ -212,19 +228,24 @@ router.get('/link', function(req, res, next) {
                 var apiData = api[j].attributes;
                 //获取所有参数
                 var paraText = '';
+                var paraDesc = ''
                 for(var k = 0; k < apiData.api_para.length; k++){
                     var paraData = apiData.api_para[k];
                     //生成参数text
                     paraText+= ' *'+paraData.para_name+'('+paraData.para_type+') '+':'+paraData.para_desc+(paraData.para_must? ' 必须值':'')+'\n';
+                    paraDesc += paraData.para_name+" : "+paraData.para_must+((k == apiData.api_para.length-1) ? "" : ",")+'\n';
                 }
                 //生成方法注释
                 var apiMethodTip = '/*!\n *'+apiData.api_desc+'\n'+paraText+' */\n';
                 //生成方法
 
-                var apiMethod = 'function '+apiData.api_name+'(data,callback){\n'+
+                var para = '{\n'+paraDesc+'}\n';
+
+                var apiMethod = 'function '+apiData.api_name+'(data){\n'+
                                 '   var url = "'+apiData.api_url+'";\n'+
                                 '   var type = "'+apiData.api_request+'";\n'+
-                                '   sendQuery(url,type,data,callback);\n'+
+                                '   '+para+
+                                '   return sendQuery(url,type,data,para);\n'+
                                 '}\n';
 
                 jsText += apiMethodTip + apiMethod;

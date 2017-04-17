@@ -13,7 +13,7 @@ function sendError(res,code,message){
 
 function validate(res,req,type,data){
     for(var i in data){
-        if(type == "GET"){
+        if(req.method == "GET"){
             var value = req.query[i];
         }else{
             var value = req.body[i];
@@ -94,7 +94,7 @@ router.get('/create', function(req, res, next) {
 });
 
 // 编辑内容
-router.get('/edit', function(req, res, next) {
+router.post('/edit', function(req, res, next) {
     var data = {
         app_id            : "appid不能为空",
         edit_app_name     : "项目名称不能为空",
@@ -126,6 +126,12 @@ router.get('/edit', function(req, res, next) {
 
 // 查询 Todo 列表
 router.get('/list', function(req, res, next) {
+
+    //获取当前链接
+    // console.log(req.baseUrl+req.path);
+    //判断是什么请求方式
+    console.log(req.method);
+
   	var query = new AV.Query(APP);
   	query.descending('createdAt');
   	query.find().then(function(results) {

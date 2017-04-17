@@ -135,7 +135,7 @@
         //获取所有表单数据
         var data = $("#editForm").serializeArray();
         var url = "/app/edit";
-        var type = "GET";
+        var type = "POST";
         sendQuery(url,type,data,{
             success:function(result){
                 console.log(result);
