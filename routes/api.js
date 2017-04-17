@@ -241,7 +241,7 @@ router.get('/link', function(req, res, next) {
                                 '   var url = "'+apiData.api_url+'";\n'+
                                 '   var type = "'+apiData.api_request+'";\n'+
                                 '   var para = {\n'+paraDesc+
-                                '   }\n'+;
+                                '   }\n'+
                                 '   return sendQuery(url,type,data,para);\n'+
                                 '}\n';
 
