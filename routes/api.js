@@ -182,6 +182,14 @@ router.get('/link', function(req, res, next) {
                            ' */\n';
         commonMethod += 'function sendQuery(url,type,data,para){\n'+
                         '   var dfd = $.Deferred(); // 生成Deferred对象\n'+
+                        '   //兼容form序列化数据提交\n'+
+                        '   if(data.length){\n'+
+                        '       var newData = {};\n'+
+                        '       for(var i = 0; i < data.length;i++){\n'+
+                        '           newData[data[i].name] = data[i].value;\n'+
+                        '       }\n'+
+                        '       data = newData;\n'+
+                        '   }\n'+
                         '   //判断值是否为空\n'+
                         '   for(var i in para){\n'+
                         '       if(para[i] && !data[i]){\n'+
