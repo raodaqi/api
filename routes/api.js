@@ -187,7 +187,7 @@ router.get('/link', function(req, res, next) {
                         '       if(para[i] && !data[i]){\n'+
                         '           var result = {\n'+
                         '               code:302,\n'+
-                        '               meesage:"缺少"+i,\n'+
+                        '               message:"缺少"+i,\n'+
                         '               data:[]\n'+
                         '           }\n'+
                         '           dfd.reject(result);\n'+
@@ -208,7 +208,7 @@ router.get('/link', function(req, res, next) {
                         '       },function(error){\n'+
                         '           var result = {\n'+
                         '               code:404,\n'+
-                        '               meesage:"服务器出错",\n'+
+                        '               message:"服务器出错",\n'+
                         '               data:[]\n'+
                         '           }\n'+
                         '           dfd.reject(result);\n'+
