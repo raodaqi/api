@@ -2,6 +2,8 @@
 var router = require('express').Router();
 var AV = require('leanengine');
 
+var fs = require("fs");
+
 function sendError(res,code,message){
 	var result = {
 		code:code,

@@ -104,8 +104,8 @@ body {
     margin: 40px 0 40px 20px;
     padding: 0;
     list-style: none;
-    position: fixed;
-    overflow: hidden;
+    /*position: fixed;*/
+    /*overflow: hidden;*/
 }
 
 .menu-li {
